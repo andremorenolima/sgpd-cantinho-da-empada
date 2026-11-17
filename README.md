@@ -30,7 +30,6 @@ O projeto adota uma arquitetura MVC limpa e segura:
 ```text
 sgpd-cantinho-da-empada/
 ├── app.py                 # Arquivo principal da aplicação Flask
-├── models.py              # Definição das entidades e banco de dados (SQLAlchemy)
 ├── requirements.txt       # Dependências e bibliotecas do projeto
 ├── static/                # Arquivos estáticos (CSS, imagens e scripts JS)
 └── templates/             # Templates HTML (Login, Balcão e Cozinha)

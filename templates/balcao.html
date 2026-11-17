@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+    <h2 style="margin-top:0; color: var(--primary);">Cadastro de Encomenda (Balcão)</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="client_name">Nome do Cliente *</label>
+            <input type="text" id="client_name" name="client_name" required placeholder="Nome completo do cliente">
+        </div>
+        <div class="form-group">
+            <label for="phone">Telefone / WhatsApp *</label>
+            <input type="text" id="phone" name="phone" required placeholder="(11) 98888-7777">
+        </div>
+        <div class="form-group">
+            <label for="items">Descrição dos Itens *</label>
+            <textarea id="items" name="items" rows="4" required placeholder="Ex: 10 Empadas de Palmito, 5 Frango com Catupiry..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="pickup_time">Horário de Retirada *</label>
+            <input type="text" id="pickup_time" name="pickup_time" required placeholder="Ex: Hoje às 15:30">
+        </div>
+        <div class="form-group">
+            <label for="dietary_restrictions">Restrições Alimentares / Observações</label>
+            <input type="text" id="dietary_restrictions" name="dietary_restrictions" placeholder="Ex: Sem pimenta, massa integral...">
+        </div>
+        <button type="submit" style="width: 100%;">Salvar e Enviar para Cozinha</button>
+    </form>
+</div>
+{% endblock %}

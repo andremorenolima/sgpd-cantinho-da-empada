@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="color: var(--primary); margin-bottom: 1.5rem;">Painel de Produção da Cozinha</h2>
+
+<div class="kanban-board">
+    <!-- Coluna Pendente -->
+    <div class="kanban-column">
+        <h3>⏳ Pendentes ({{ pending|length }})</h3>
+        {% for o in pending %}
+        <div class="order-card">
+            <div class="badge-status status-pendente">⏱️ Pendente</div>
+            <h4 style="margin: 0.2rem 0;">#{{ o.id }} - {{ o.client_name }}</h4>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Tel:</strong> {{ o.phone }}</p>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Itens:</strong> {{ o.items }}</p>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Retirada:</strong> {{ o.pickup_time }}</p>
+            {% if o.dietary_restrictions %}
+            <p style="margin: 0.3rem 0; font-size: 0.85rem; color: #d9534f;"><strong>Obs:</strong> {{ o.dietary_restrictions }}</p>
+            {% endif %}
+            <div style="margin-top: 1rem;">
+                <a href="{{ url_for('update_status', order_id=o.id, new_status='Em Produção') }}" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem; width: 100%;">Avançar para Produção ➔</a>
+            </div>
+        </div>
+        {% else %}
+        <p style="color: #666; font-style: italic;">Nenhum pedido pendente.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Coluna Em Produção -->
+    <div class="kanban-column">
+        <h3>🔥 Em Produção ({{ production|length }})</h3>
+        {% for o in production %}
+        <div class="order-card" style="border-left-color: #007bff;">
+            <div class="badge-status status-producao">⚙️ Em Produção</div>
+            <h4 style="margin: 0.2rem 0;">#{{ o.id }} - {{ o.client_name }}</h4>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Tel:</strong> {{ o.phone }}</p>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Itens:</strong> {{ o.items }}</p>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Retirada:</strong> {{ o.pickup_time }}</p>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <a href="{{ url_for('update_status', order_id=o.id, new_status='Pendente') }}" class="btn" style="background: #6c757d; padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">⬅ Voltar</a>
+                <a href="{{ url_for('update_status', order_id=o.id, new_status='Finalizado') }}" class="btn" style="background: #28a745; padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">Finalizar ✔</a>
+            </div>
+        </div>
+        {% else %}
+        <p style="color: #666; font-style: italic;">Nenhum pedido em produção.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Coluna Finalizado -->
+    <div class="kanban-column">
+        <h3>✅ Finalizados ({{ finished|length }})</h3>
+        {% for o in finished %}
+        <div class="order-card" style="border-left-color: #28a745;">
+            <div class="badge-status status-finalizado">✔️ Finalizado</div>
+            <h4 style="margin: 0.2rem 0;">#{{ o.id }} - {{ o.client_name }}</h4>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Tel:</strong> {{ o.phone }}</p>
+            <p style="margin: 0.3rem 0; font-size: 0.9rem;"><strong>Itens:</strong> {{ o.items }}</p>
+            <div style="margin-top: 1rem;">
+                <a href="{{ url_for('update_status', order_id=o.id, new_status='Em Produção') }}" class="btn" style="background: #6c757d; padding: 0.4rem 0.8rem; font-size: 0.8rem; width: 100%;">Reabrir Pedido</a>
+            </div>
+        </div>
+        {% else %}
+        <p style="color: #666; font-style: italic;">Nenhum pedido finalizado.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
